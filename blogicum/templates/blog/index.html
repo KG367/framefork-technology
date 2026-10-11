@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Лента записей</h1>
+
+    {% for post_item in post reversed %}
+        <hr>
+        <article>
+            <ul>
+                <li>Место: {{ post_item.location }}</li>
+                <li>Дата: {{ post_item.date }}</li>
+                <li>
+                    Категория:
+                    <a href="{% url 'blog:category_posts' post_item.category %}">
+                        {{ post_item.category }}
+                    </a>
+                </li>
+            </ul>
+
+            <p>{{ post_item.text|truncatewords:10 }}</p>
+
+            <a href="{% url 'blog:post_detail' post_item.id %}">
+                Читать полный текст
+            </a>
+        </article>
+    {% endfor %}
+</div>
+{% endblock %}
