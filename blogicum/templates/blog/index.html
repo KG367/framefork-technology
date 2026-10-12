@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}????? ???????{% endblock %}
+
+{% block content %}
+<h1>????? ???????</h1>
+{% for post in posts reversed %}
+<hr>
+<article>
+          <ul>
+            <li>
+              Место: Остров отчаянья              
+            </li>
+            <li>
+              Дата: 25 октября 1659 года
+            </li>
+            <li>
+              Категория: <a href="{% url 'blog:category_posts' post.category %}">{{ post.category }}</a>
+            </li>
+          </ul>         
+          <p>{{ post.text|truncatewords:10 }}</p>          
+          <a href="{% url 'blog:post_detail' post.id %}">?????? ?????? ?????</a>
+</article>
+{% endfor %}
+{% endblock %}
