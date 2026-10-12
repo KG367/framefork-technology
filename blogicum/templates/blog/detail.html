@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.location }}. {{ post.date }}{% endblock %}
+
+{% block content %}
+<article>
+          <ul>
+            <li>
+              Место: Остров отчаянья              
+            </li>
+            <li>
+              Дата: 25 октября 1659 года
+            </li>
+            <li>
+              Категория: <a href="{% url 'blog:category_posts' post.category %}">{{ post.category }}</a>
+            </li>
+          </ul>         
+          <p>{{ post.text|linebreaksbr }}</p>          
+        </article>
+{% endblock %}
