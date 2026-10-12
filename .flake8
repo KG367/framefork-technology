@@ -1,0 +1,13 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    venv,
+    migrations
+per-file-ignores =
+    */settings.py: E501
+    */admin.py: D100, F401
+    */models.py: D100, F401
+    */tests.py: D100, F401
+    */apps.py: D100, D101
+    */__init__.py: D104
