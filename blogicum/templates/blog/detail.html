@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {% if post %}
+    {{ post.location }}. {{ post.date }}
+  {% else %}
+    Пост не найден
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if post %}
+    <article>
+      <ul>
+        <li>Место: {{ post.location }}</li>
+        <li>Дата: {{ post.date }}</li>
+        <li>
+          Категория:
+          <a href="{% url 'blog:category_posts' post.category %}">{{ post.category }}</a>
+        </li>
+      </ul>
+      <p>{{ post.text }}</p>
+    </article>
+  {% else %}
+    <h1>Пост не найден</h1>
+    <p>Пост с указанным идентификатором отсутствует.</p>
+  {% endif %}
+{% endblock %}
