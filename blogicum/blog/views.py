@@ -1,3 +1,6 @@
+"""Страницы публикаций и категорий блога."""
+
+from django.http import Http404
 from django.shortcuts import render
 
 posts = [
@@ -43,30 +46,23 @@ posts = [
     },
 ]
 
+posts_by_id = {post['id']: post for post in posts}
+
 
 def index(request):
-
-    context = {
-        'posts': posts
-    }
-
-    return render(request, 'blog/index.html', context)
+    """Показать ленту публикаций."""
+    return render(request, 'blog/index.html', {'posts': posts})
 
 
 def post_detail(request, post_id):
-    for post in posts:
-        if post['id'] == post_id:
-            context = {
-                'post': post,
-            }
-            return render(request, 'blog/detail.html', context, status=200)
-
-    return render(request, 'blog/detail.html', status=404)
+    """Показать публикацию или вернуть 404 для неизвестного ID."""
+    if post_id not in posts_by_id:
+        raise Http404(f'Пост с id={post_id} не найден.')
+    post = posts_by_id[post_id]
+    return render(request, 'blog/detail.html', {'post': post})
 
 
 def category_posts(request, category_slug):
-    context = {
-        'category_slug': category_slug
-    }
-
+    """Показать название категории из URL."""
+    context = {'category_slug': category_slug}
     return render(request, 'blog/category.html', context)
